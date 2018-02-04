@@ -3,9 +3,7 @@ ADD . /go/src/app
 WORKDIR /go/src/app
 RUN go get -u -v github.com/kardianos/govendor
 RUN govendor sync
-ENV GOOS=linux
-ENV GOARCH=386
-RUN go build -v -o /go/src/app/app-server
+RUN GOOS=linux GOARCH=386 go build -v -o /go/src/app/app-server
 
 
 FROM alpine

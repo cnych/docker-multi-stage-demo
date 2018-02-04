@@ -15,6 +15,24 @@ $ docker run --rm -p 8080:8080 cnych/docker-multi-stage-demo:latest
 after run successfully, you can visit `http://127.0.0.1:8080/ping` in browser.
 
 
+## Before Multi-stage Build Method
+you can build multi images, use multi images:
+```
+#!/bin/sh
+echo Building cnych/docker-multi-stage-demo:build
+
+docker build -t cnych/docker-multi-stage-demo:build . -f Dockerfile.build
+
+docker create --name extract cnych/docker-multi-stage-demo:build  
+docker cp extract:/go/src/app/app-server ./app-server  
+docker rm -f extract
+
+echo Building cnych/docker-multi-stage-demo:old
+
+docker build --no-cache -t cnych/docker-multi-stage-demo:old . -f Dockerfile.old
+rm ./app-server
+```
+
 ## Dockerfile
 you can define multi stage in Dockerfile:
 ```

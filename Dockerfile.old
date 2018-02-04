@@ -1,0 +1,6 @@
+FROM alpine:latest  
+RUN apk add -U tzdata
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
+WORKDIR /root/
+COPY app-server .
+CMD ["./app-server"]  

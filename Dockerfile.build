@@ -1,0 +1,6 @@
+FROM golang
+WORKDIR /go/src/app
+ADD . /go/src/app
+RUN go get -u -v github.com/kardianos/govendor
+RUN govendor sync
+RUN GOOS=linux GOARCH=386 go build -v -o /go/src/app/app-server
